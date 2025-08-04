@@ -1,1 +1,125 @@
-<!-- Manage recipes -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Manage Recipes and Videos</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .navbar-brand img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .form-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+      .form-section label {
+        font-weight: bold;
+      }
+      .form-section textarea {
+        width: 100%;
+        resize: vertical;
+      }
+    </style>
+  </head>
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <!-- Header with nav -->
+    <header>
+      <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/image/logo.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+            Manage Recipes and Videos
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/admin/dashboard">Home</a>
+                </li>
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Main content -->
+    <main class="mt-5 pt-3">
+      <h1 class="message">Welcome to Recipe and Video Management System</h1>
+      <p class="message">Welcome back! Manage your recipes and videos here.</p>
+
+      <!-- Add New Recipe Form -->
+      <section class="form-section">
+        <h2><%= editRecipe ? 'Edit Recipe' : 'Add New Recipe' %></h2>
+        <form id="recipeForm" action="/admin/manageRecipes" method="POST">
+          <input type="hidden" name="action" value="<%= editRecipe ? 'edit' : 'add' %>" id="formAction">
+          <input type="hidden" name="recipeId" id="recipeId" value="<%= editRecipe ? editRecipe._id : '' %>">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" id="title" name="title" class="form-control" required value="<%= editRecipe ? editRecipe.title : '' %>">
+          </div>
+          <div class="mb-3">
+            <label for="imageUrl" class="form-label">Image URL:</label>
+            <input type="url" id="imageUrl" name="imageUrl" class="form-control" value="<%= editRecipe ? editRecipe.imageUrl : '' %>">
+          </div>
+          <div class="mb-3">
+            <label for="ingredients" class="form-label">Ingredients (separate by new lines):</label>
+            <textarea id="ingredients" name="ingredients" rows="4" class="form-control" required><%= editRecipe ? editRecipe.ingredients : '' %></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="instructions" class="form-label">Instructions (separate by new lines):</label>
+            <textarea id="instructions" name="instructions" rows="4" class="form-control" required><%= editRecipe ? editRecipe.instructions : '' %></textarea>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" id="published" name="published" class="form-check-input" <%= editRecipe && editRecipe.published ? 'checked' : '' %>>
+            <label for="published" class="form-check-label">Published</label>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn"><%= editRecipe ? 'Update Recipe' : 'Add Recipe' %></button>
+        </form>
+      </section>
+
+      <!-- Add New Video Form -->
+      <section class="form-section">
+        <h2><%= editVideo ? 'Edit Video' : 'Add New Video' %></h2>
+        <form id="videoForm" action="/admin/manageVideos" method="POST">
+          <input type="hidden" name="action" value="<%= editVideo ? 'edit' : 'add' %>" id="videoFormAction">
+          <input type="hidden" name="videoId" id="videoId" value="<%= editVideo ? editVideo._id : '' %>">
+          <div class="mb-3">
+            <label for="videoTitle" class="form-label">Title:</label>
+            <input type="text" id="videoTitle" name="title" class="form-control" required value="<%= editVideo ? editVideo.title : '' %>">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea id="description" name="description" rows="3" class="form-control"><%= editVideo ? editVideo.description : '' %></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="video_url" class="form-label">Video URL:</label>
+            <input type="url" id="video_url" name="video_url" class="form-control" required value="<%= editVideo ? editVideo.video_url : '' %>">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" id="videoPublished" name="published" class="form-check-input" <%= editVideo && editVideo.published ? 'checked' : '' %>>
+            <label for="videoPublished" class="form-check-label">Published</label>
+          </div>
+          <button type="submit" class="btn btn-primary" id="videoSubmitBtn"><%= editVideo ? 'Update Video' : 'Add Video' %></button>
+        </form>
+      </section>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

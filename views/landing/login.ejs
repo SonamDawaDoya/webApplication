@@ -1,53 +1,23 @@
-<!DOCTYPE html>
+<!-- User dashboard -->
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Sherubtse Semester Registration</title>
-  <style>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Home Page</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #ffffff;
     }
-
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 3px solid #0078d4;
-      padding: 15px 30px;
-      background-color: white;
-    }
-
-
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
-
-
-    .logo {
-      width: 50px;
-      height: 50px;
-      margin-right: 15px;
-    }
-
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      font-weight: 600;
-    }
-
-
-    .nav-links a {
-      text-decoration: none;
-      color: #0078d4;
-    }
-
-
+    .navbar-brand img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
     .main-content {
       padding: 50px;
       background-color: #000000;
@@ -56,8 +26,6 @@
       justify-content: center;
       align-items: center;
     }
-
-
     .form-card {
       background-color: white;
       border-radius: 10px;
@@ -66,26 +34,18 @@
       max-width: 400px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-
     .form-card h2 {
       text-align: center;
       margin-bottom: 25px;
     }
-
-
     .form-group {
       margin-bottom: 20px;
     }
-
-
     .form-group label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
     }
-
-
     .form-group input {
       width: 100%;
       padding: 10px;
@@ -103,28 +63,20 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
-
     .message {
       text-align: center;
       margin-bottom: 15px;
       color: red;
       font-weight: 500;
     }
-
-
     .register-link {
       text-align: center;
       margin-top: 15px;
     }
-
-
     .register-link a {
       color: #0078d4;
       text-decoration: none;
     }
-
-
     .register-link a:hover {
       text-decoration: underline;
     }
@@ -142,26 +94,42 @@
       display: inline-block;
     }
   </style>
-</head>
-<body>
-  <header class="header">
-    <div class="header-left">
-      <a href="/"><img src="/img/logo.jpg" alt="Logo" class="logo" /></a>
-      <h2>Sherubtse Semester Registration</h2>
-    </div>
-    <div class="nav-links">
-      <a href="/" class="btn-logout">Home</a>
-    </div>
-  </header>
-
-
-  <main class="main-content">
+  </head>
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <!-- Header with nav -->
+    <header>
+      <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/image/logo.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+            
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Main content -->
+     <main class="main-content">
     <div class="form-card">
       <h2>Login</h2>
       <% if (message) { %>
         <div class="message"><%= message %></div>
       <% } %>
-      <form action="../landing/home.ejs" method="POST">
+      <form action="/user/login" method="POST">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Email" required />
@@ -173,17 +141,18 @@
         <div class="register-link" style="text-align: right; margin-top: -10px; margin-bottom: 15px;">
           <a href="/forgot_password">Forgot password?</a>
         </div>
-
-
         <button type="submit" class="btn-submit">Login</button>
       </form>
-
-
+      <!-- add google account login option -->
+      <div class="message" style="text-align: center; margin-top: 15px;">
+        <p>Or login with:</p>
+        <a href="/user/auth/google" class="btn btn-danger">Google Account</a>
+      </div>
       <div class="register-link">
-        Don’t have an account? <a href="/user/register">Create one</a>
+        Don’t have an account? <a href="/register">Create one</a>
       </div>
     </div>
   </main>
-    <%- include('../partials/footer') %>
   </body>
+  <%- include('../partials/footer') %>
 </html>

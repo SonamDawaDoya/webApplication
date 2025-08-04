@@ -2,14 +2,18 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
+    const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/recipe_app';
+    console.log('Connecting to MongoDB...');
+    
+    await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('MongoDB connected');
+    console.log('MongoDB connected successfully');
   } catch (err) {
     console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit process with failure
+    console.log('Continuing without MongoDB connection...');
+    // Don't exit process, just log the error
   }
 };
 

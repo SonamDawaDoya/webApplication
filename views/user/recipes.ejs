@@ -1,1 +1,181 @@
 <!-- User recipe browsing page -->
+<!-- Manage recipes -->
+<!-- Admin dashboard -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Look at my recipes!</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .navbar-brand img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .recipe-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(200, 177, 177, 0.286);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2a7f62;
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .meta {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .meta span {
+            font-weight: bold;
+            color: #2a7f62;
+        }
+        
+        h2 {
+            color: #2a7f62;
+            font-size: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 10px;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .directions ol {
+            padding-left: 20px;
+        }
+        
+        .directions li {
+            margin-bottom: 15px;
+        }
+        
+        .notes {
+            font-style: italic;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .warning {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #f2dede;
+            background-color: #fdf7f7;
+            border-radius: 4px;
+        }
+
+    </style>
+  </head>
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <!-- Header with nav -->
+    <header>
+      <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/image/logo.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+            Manage Recipes
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/user/dashboard">Home</a>
+                </li>
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <body>
+  <header>
+    <!-- Main content -->
+    <main class="mt-5 pt-3">
+      <h1 class="message">Welcome to Recipe Management System</h1>
+
+      <% if (recipes && recipes.length > 0) { %>
+        <% recipes.forEach(recipe => { %>
+          <div class="recipe-card">
+            <h1><%= recipe.title %></h1>
+            <p class="subtitle"><%= recipe.description || 'Delicious recipe!' %></p>
+            
+            <h2>INGREDIENTS</h2>
+            <ul>
+              <% if (recipe.ingredients) { %>
+                <% recipe.ingredients.split(/[\n,]+/).forEach(ingredient => { %>
+                  <li><%= ingredient.trim() %></li>
+                <% }); %>
+              <% } else { %>
+                <li>No ingredients listed.</li>
+              <% } %>
+            </ul>
+            
+            <h2>DIRECTIONS</h2>
+            <div class="directions">
+              <% if (recipe.instructions) { %>
+                <ol>
+                  <% recipe.instructions.split(/[\n,]+/).forEach(step => { %>
+                    <% if (step.trim().length > 0) { %>
+                      <li><%= step.trim() %>.</li>
+                    <% } %>
+                  <% }) %>
+                </ol>
+              <% } else { %>
+                <p>No instructions provided.</p>
+              <% } %>
+            </div>
+            
+            <% if (recipe.notes) { %>
+              <h2>NOTES</h2>
+              <div class="notes">
+                <%= recipe.notes %>
+              </div>
+            <% } %>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>No published recipes found.</p>
+      <% } %>
+
+    </main>
+  </body>
+</html>

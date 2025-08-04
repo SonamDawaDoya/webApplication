@@ -1,1 +1,69 @@
 /* Main CSS styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.form {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+.form input, form button {
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.hero{
+  text-align: center;
+}
+
+.trending{
+  text-align: center;
+}
+
+.cards{
+  text-align: center;
+}
+
+.card{
+  text-align: center;
+  /* display: flex; */
+}
+
+.categories{
+  text-align: center;
+}
+
+.reviews{
+  text-align: center;
+}
+
+.container{
+  text-decoration: rgb(122, 134, 134);
+}
+
+/* Added styles for recipe images in user dashboard */
+.recipe-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #f8f8f8;
+  display: block; /* Ensures proper rendering */
+  margin: 0 auto; /* Centers the image */
+}
+
+/* Fallback styling if image fails to load */
+.card img[src$="default-food.jpg"] {
+  background-color: #f0f0f0;
+  padding: 20px;
+}

@@ -1,1 +1,39 @@
-<!-- Shared header -->
+<style>
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #0078d4;
+  padding: 15px 30px;
+  background-color: rgb(209, 214, 211);
+  text-align: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+</style>
+<header class="header">
+  <div class="header-left">
+    <img src="/image/logo.jpg" alt="Logo" class="logo" />
+    <h2>Diversity Recipe </h2>
+  </div>
+  <div class="nav-links">
+    <a href="/login" class="btn-logout">Login</a>
+    <a href="/register" class="btn-logout">Register</a>
+  </div>
+</header>
